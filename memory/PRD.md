@@ -22,14 +22,23 @@ Build a landing page for a quiz for scoring husband with:
 
 ## What's Been Implemented (Jan 31, 2025)
 - ✅ Landing page with bold headline, animated CTA, image carousel, footer
-- ✅ Quiz instructions page with name input and rules
-- ✅ 15 quiz questions with large HAAN/NA buttons
+- ✅ Quiz instructions page (English, no background card, no name input)
+- ✅ 15 professional questions about husband qualities
+- ✅ 5 hidden categories for scoring (stored in backend, not shown to users)
+- ✅ Themed YES/NO buttons (purple/pink matching app theme)
 - ✅ Progress bar showing question progress
 - ✅ Result page with score %, rating, and stats
-- ✅ Backend API for storing/retrieving quiz results
+- ✅ Backend API for storing/retrieving quiz results with category scores
 - ✅ MongoDB storage for all quiz submissions
 - ✅ GCP deployment guide created
 - ✅ Dockerfile for Cloud Run deployment
+
+## Question Categories (Hidden from Users)
+1. **Personality and Psychological Stability** (Q1-3)
+2. **Cognitive Empathy and Partner Perspective-Taking** (Q4-6)
+3. **Conflict Management and Relational Influence** (Q7-9)
+4. **Proactive Domestic Contribution and Shared Labor** (Q10-12)
+5. **Attachment Security and Relational Investment** (Q13-15)
 
 ## Rating System
 | Score | Rating |
