@@ -40,3 +40,7 @@ test_reports/
 # Misc
 *.bak
 *.tmp
+-e 
+# Environment files
+*.env
+*.env.*
