@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Optional
+from typing import List, Optional, Dict
 import uuid
 from datetime import datetime, timezone
 
@@ -25,6 +25,12 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 # Define Models
+class CategoryScore(BaseModel):
+    name: str
+    yes_count: int
+    total: int
+    percentage: float
+
 class QuizResult(BaseModel):
     model_config = ConfigDict(extra="ignore")
     
@@ -36,6 +42,7 @@ class QuizResult(BaseModel):
     score_percentage: float
     pati_rating: str
     answers: List[dict]
+    category_scores: Optional[Dict[str, dict]] = None
     timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class QuizResultCreate(BaseModel):
@@ -43,6 +50,7 @@ class QuizResultCreate(BaseModel):
     yes_count: int
     no_count: int
     answers: List[dict]
+    category_scores: Optional[Dict[str, dict]] = None
 
 class QuizResultResponse(BaseModel):
     id: str
@@ -52,6 +60,7 @@ class QuizResultResponse(BaseModel):
     yes_count: int
     no_count: int
     timestamp: str
+    category_scores: Optional[Dict[str, dict]] = None
 
 # Helper function to calculate rating
 def calculate_pati_rating(yes_count: int, total: int = 15) -> tuple:
@@ -87,7 +96,8 @@ async def submit_quiz(input: QuizResultCreate):
         no_count=input.no_count,
         score_percentage=score_percentage,
         pati_rating=pati_rating,
-        answers=input.answers
+        answers=input.answers,
+        category_scores=input.category_scores
     )
     
     doc = quiz_result.model_dump()
@@ -100,7 +110,8 @@ async def submit_quiz(input: QuizResultCreate):
         pati_rating=quiz_result.pati_rating,
         yes_count=quiz_result.yes_count,
         no_count=quiz_result.no_count,
-        timestamp=quiz_result.timestamp
+        timestamp=quiz_result.timestamp,
+        category_scores=quiz_result.category_scores
     )
 
 @api_router.get("/quiz/results", response_model=List[QuizResultResponse])
