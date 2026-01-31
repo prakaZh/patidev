@@ -14,12 +14,9 @@ export const QuizInstructions = () => {
   return (
     <div className="quiz-instructions-page" data-testid="quiz-instructions-page">
       <div className="instructions-container">
-        {/* Header */}
+        {/* Header - Heart only, no Quiz Time label */}
         <div className="instructions-header">
           <Heart className="heart-icon" fill="currentColor" size={48} />
-          <h1 className="instructions-title" data-testid="instructions-title">
-            QUIZ TIME
-          </h1>
         </div>
 
         {/* Instructions List */}

@@ -1,26 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 const IMAGES = [
-  {
-    url: 'https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/2gvr1v9y_Gemini_Generated_Image_tkr1fwtkr1fwtkr1.png',
-    alt: 'Character 1'
-  },
-  {
-    url: 'https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/ckk51ppy_Gemini_Generated_Image_o42in0o42in0o42i%20-%20Edited.png',
-    alt: 'Character 2'
-  },
-  {
-    url: 'https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/jp71x3zv_Untitled%20design.png',
-    alt: 'Character 3'
-  },
-  {
-    url: 'https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/gvedcxfr_Eminem.webp',
-    alt: 'Character 4'
-  },
-  {
-    url: 'https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/dkuh8kpt_AB-WEEKND-COMP.webp',
-    alt: 'Character 5'
-  }
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/mex16oxi_1.png', alt: 'Character 1' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/rfju9oxc_2.png', alt: 'Character 2' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/4bo03sxn_3.png', alt: 'Character 3' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/pq243wb8_4.png', alt: 'Character 4' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/dvna8za7_5.png', alt: 'Character 5' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/zvchpria_6.png', alt: 'Character 6' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/q2i9ncp0_7.png', alt: 'Character 7' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/ro7n8mjv_8.png', alt: 'Character 8' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/fcuish0b_9.png', alt: 'Character 9' },
+  { url: 'https://customer-assets.emergentagent.com/job_pati-devta-quiz/artifacts/gdnm2cg4_10.png', alt: 'Character 10' }
 ];
 
 export const ImageCarousel = () => {
@@ -40,15 +30,6 @@ export const ImageCarousel = () => {
     return () => clearInterval(interval);
   }, [nextSlide]);
 
-  const goToSlide = (index) => {
-    if (index === currentIndex) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentIndex(index);
-      setIsTransitioning(false);
-    }, 500);
-  };
-
   const currentImage = IMAGES[currentIndex];
 
   return (
@@ -63,19 +44,6 @@ export const ImageCarousel = () => {
             style={{ background: 'transparent' }}
             data-testid="carousel-image"
           />
-        </div>
-        
-        {/* Carousel Dots Indicator */}
-        <div className="flex justify-center gap-2 mt-6" data-testid="carousel-dots">
-          {IMAGES.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
-              aria-label={`Go to slide ${index + 1}`}
-              data-testid={`carousel-dot-${index}`}
-            />
-          ))}
         </div>
       </div>
     </section>
