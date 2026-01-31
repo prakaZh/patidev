@@ -24,7 +24,7 @@ export const Footer = () => {
           aria-label="Follow on Instagram"
           data-testid="instagram-link"
         >
-          <Instagram size={28} />
+          <Instagram size={24} />
         </a>
         <a 
           href="https://www.linkedin.com/in/prakash-kumar-prasad-a9467b95" 
@@ -34,7 +34,7 @@ export const Footer = () => {
           aria-label="Connect on LinkedIn"
           data-testid="linkedin-link"
         >
-          <Linkedin size={28} />
+          <Linkedin size={24} />
         </a>
       </div>
     </footer>

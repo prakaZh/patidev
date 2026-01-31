@@ -11,11 +11,11 @@ function App() {
   };
 
   return (
-    <div className="App grainy-overlay" data-testid="app-container">
-      {/* Hero Section - Top half with headline and CTA */}
+    <div className="App" data-testid="app-container">
+      {/* Hero Section - Top half with bold headline and CTA */}
       <HeroSection onCtaClick={handleCtaClick} />
       
-      {/* Image Carousel Section */}
+      {/* Image Carousel Section - Transparent background */}
       <ImageCarousel />
       
       {/* Footer with credits and social links */}
