@@ -1,34 +1,163 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Main App Container */
+.App {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #FFF8E7 0%, #F4E4BC 100%);
+  position: relative;
+  overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Hero Section Styles */
+.hero-section {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  position: relative;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.hero-headline {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: #800000;
+  text-shadow: 2px 2px 0px rgba(255, 183, 3, 0.5);
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  max-width: 90%;
 }
 
-.App-link {
-    color: #61dafb;
+.cta-button {
+  background: linear-gradient(135deg, #FFB703 0%, #FB8500 100%);
+  color: #4A0404;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px 0 rgba(255, 183, 3, 0.39);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px 0 rgba(255, 183, 3, 0.6);
+}
+
+/* Image Carousel Styles */
+.carousel-section {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-container {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.polaroid-frame {
+  background: white;
+  padding: 12px 12px 40px 12px;
+  box-shadow: 0 10px 30px -10px rgba(74, 4, 4, 0.2);
+  border-radius: 4px;
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform 0.3s ease;
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* Footer Styles */
+.footer-section {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: rgba(128, 0, 0, 0.05);
+  border-top: 1px solid #E6CFA1;
+}
+
+.footer-signature {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem;
+  color: #800000;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #4A0404;
+  margin-bottom: 1rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-link {
+  color: #800000;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-link:hover {
+  color: #D90429;
+  transform: scale(1.2);
+}
+
+/* Floating Hearts */
+.floating-heart {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Desktop Responsive */
+@media (min-width: 768px) {
+  .hero-section {
+    min-height: 60vh;
+    padding: 4rem 2rem;
+  }
+  
+  .hero-headline {
+    max-width: 70%;
+  }
+  
+  .carousel-container {
+    max-width: 500px;
+  }
+  
+  .polaroid-image {
+    height: 450px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-headline {
+    max-width: 60%;
+  }
+  
+  .carousel-container {
+    max-width: 600px;
+  }
+  
+  .polaroid-image {
+    height: 500px;
+  }
 }
