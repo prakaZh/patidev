@@ -1,0 +1,120 @@
+{
+  "design_system": {
+    "typography": {
+      "font_family": {
+        "heading": ["Rozha One", "serif"],
+        "body": ["Nunito", "sans-serif"],
+        "accent": ["Caveat", "cursive"]
+      },
+      "scale": {
+        "h1": "text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]",
+        "h2": "text-3xl md:text-5xl font-bold",
+        "body": "text-lg md:text-xl leading-relaxed",
+        "caption": "text-sm font-medium tracking-wide uppercase"
+      },
+      "imports": [
+        "https://fonts.googleapis.com/css2?family=Rozha+One&family=Nunito:wght@400;600;800&family=Caveat:wght@700&display=swap"
+      ]
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "DEFAULT": "#800000",
+          "foreground": "#FFF8E7"
+        },
+        "secondary": {
+          "DEFAULT": "#FFB703",
+          "foreground": "#4A0404"
+        },
+        "background": "#FFF8E7",
+        "foreground": "#4A0404",
+        "accent": {
+          "DEFAULT": "#D90429",
+          "foreground": "#FFFFFF"
+        },
+        "muted": {
+          "DEFAULT": "#F4E4BC",
+          "foreground": "#8C7A6B"
+        },
+        "card": {
+          "DEFAULT": "#FFFFFF",
+          "foreground": "#4A0404"
+        },
+        "border": "#E6CFA1"
+      },
+      "gradients": {
+        "hero": "radial-gradient(circle at center, #FFF8E7 0%, #F4E4BC 100%)",
+        "button": "linear-gradient(135deg, #FFB703 0%, #FB8500 100%)"
+      }
+    },
+    "spacing": {
+      "container": "max-w-md mx-auto px-6 py-12 md:max-w-4xl",
+      "section_gap": "gap-12 md:gap-24"
+    },
+    "visual_enhancers": {
+      "border_radius": {
+        "default": "1rem",
+        "button": "9999px",
+        "card": "1.5rem"
+      },
+      "shadows": {
+        "card": "0 10px 30px -10px rgba(74, 4, 4, 0.1)",
+        "button": "0 4px 14px 0 rgba(255, 183, 3, 0.39)",
+        "text": "2px 2px 0px rgba(255, 183, 3, 0.5)"
+      },
+      "decorations": [
+        "Floating hearts animation",
+        "Marigold flower vector accents",
+        "Grainy texture overlay opacity-20"
+      ]
+    }
+  },
+  "components": {
+    "HeroSection": {
+      "path": "/app/frontend/src/components/HeroSection.js",
+      "instructions": "Center aligned. Use 'Rozha One' for the main headline 'KYA AAPKA PATI DEVTA HAI?'. The text should be massive (text-6xl+) and deep maroon. Add a subtle text-shadow. The 'LETS FIND OUT' button should be pill-shaped, Marigold Yellow gradient, with a 'heartbeat' animation. Add floating heart emojis or SVGs in the background.",
+      "props": {
+        "headline": "KYA AAPKA PATI DEVTA HAI?",
+        "ctaText": "LETS FIND OUT"
+      }
+    },
+    "ImageCarousel": {
+      "path": "/app/frontend/src/components/ImageCarousel.js",
+      "instructions": "Use Shadcn Carousel. Wrap images in a 'Polaroid' style frame (white padding + shadow). Images should have a slight rotation (random -2deg to 2deg) to look like scattered photos. Use fade transition. Images are provided in the asset_urls list.",
+      "assets": [
+        "https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/2gvr1v9y_Gemini_Generated_Image_tkr1fwtkr1fwtkr1.png",
+        "https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/ckk51ppy_Gemini_Generated_Image_o42in0o42in0o42i%20-%20Edited.png",
+        "https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/jp71x3zv_Untitled%20design.png",
+        "https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/gvedcxfr_Eminem.webp",
+        "https://customer-assets.emergentagent.com/job_b648d6df-c28b-4b06-a864-99fa9be25b95/artifacts/dkuh8kpt_AB-WEEKND-COMP.webp"
+      ]
+    },
+    "Footer": {
+      "path": "/app/frontend/src/components/Footer.js",
+      "instructions": "Simple, warm text. 'Created by Prakash'. Use 'Caveat' font for the signature feel. Social links should be icons (Instagram, LinkedIn) in Maroon color.",
+      "links": {
+        "instagram": "instagram.com/prakazhkumar",
+        "linkedin": "linkedin.com/in/prakash-kumar-prasad-a9467b95"
+      }
+    }
+  },
+  "layout_strategy": {
+    "type": "Mobile-First Vertical Stack",
+    "grid": "flex flex-col gap-16 items-center justify-center min-h-screen py-12",
+    "background_style": "bg-[#FFF8E7] relative overflow-hidden"
+  },
+  "motion": {
+    "entrance": "fade-in-up duration-700 ease-out",
+    "hover": "scale-105 transition-transform duration-200",
+    "continuous": "animate-pulse-slow"
+  },
+  "universal_guidelines": [
+    "Do NOT use 'Inter' font. Use 'Rozha One' for headings and 'Nunito' for body.",
+    "Primary color is Deep Maroon (#800000). Background is Cream (#FFF8E7).",
+    "Buttons must be rounded-full (pill shape) and use the Marigold gradient.",
+    "All images must have alt text.",
+    "Use 'framer-motion' for entrance animations if possible, otherwise standard CSS animations.",
+    "Ensure high contrast between Maroon text and Cream background.",
+    "The vibe is 'Indian Wedding' meets 'Tinder' - playful, romantic, slightly kitschy."
+  ]
+}
