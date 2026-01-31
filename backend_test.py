@@ -236,7 +236,8 @@ def main():
         ("Submit Quiz", tester.test_submit_quiz),
         ("Get All Results", tester.test_get_all_results),
         ("Get Specific Result", tester.test_get_specific_result),
-        ("Invalid Result ID", tester.test_invalid_result_id)
+        ("Invalid Result ID", tester.test_invalid_result_id),
+        ("Quiz Statistics", tester.test_quiz_stats)
     ]
     
     for test_name, test_func in tests:
