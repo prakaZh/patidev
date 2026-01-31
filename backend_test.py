@@ -61,16 +61,48 @@ class QuizAPITester:
         return success
 
     def test_submit_quiz(self):
-        """Test quiz submission"""
+        """Test quiz submission with category scores"""
         test_data = {
             "user_name": f"TestUser_{datetime.now().strftime('%H%M%S')}",
             "yes_count": 12,
             "no_count": 3,
             "answers": [
-                {"questionId": 1, "question": "Test question 1", "answer": "yes"},
-                {"questionId": 2, "question": "Test question 2", "answer": "yes"},
-                {"questionId": 3, "question": "Test question 3", "answer": "no"}
-            ]
+                {"questionId": 1, "question": "Does he generally remain calm and handle stressful household situations with poise, calm and grace?", "category": "personality_stability", "answer": "yes"},
+                {"questionId": 2, "question": "Does he demonstrate a high level of trust and altruism in his daily interactions with you?", "category": "personality_stability", "answer": "yes"},
+                {"questionId": 3, "question": "Is he free from tendencies toward frequent emotional distress, chronic anxiety, or hostility?", "category": "personality_stability", "answer": "no"}
+            ],
+            "category_scores": {
+                "personality_stability": {
+                    "name": "Personality and Psychological Stability",
+                    "yes_count": 2,
+                    "total": 3,
+                    "percentage": 66.67
+                },
+                "cognitive_empathy": {
+                    "name": "Cognitive Empathy and Partner Perspective-Taking",
+                    "yes_count": 3,
+                    "total": 3,
+                    "percentage": 100.0
+                },
+                "conflict_management": {
+                    "name": "Conflict Management and Relational Influence",
+                    "yes_count": 3,
+                    "total": 3,
+                    "percentage": 100.0
+                },
+                "domestic_contribution": {
+                    "name": "Proactive Domestic Contribution and Shared Labor",
+                    "yes_count": 2,
+                    "total": 3,
+                    "percentage": 66.67
+                },
+                "attachment_security": {
+                    "name": "Attachment Security and Relational Investment",
+                    "yes_count": 2,
+                    "total": 3,
+                    "percentage": 66.67
+                }
+            }
         }
         
         success, response = self.run_test(
