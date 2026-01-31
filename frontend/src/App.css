@@ -572,6 +572,7 @@
   height: auto;
   border-radius: 1rem;
   margin-bottom: 1rem;
+  background: transparent;
 }
 
 .result-title {
