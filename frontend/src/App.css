@@ -458,11 +458,260 @@
   padding: 1.5rem;
 }
 
+.quiz-result-page.analytics {
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.result-scroll-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
 .quiz-result-page.loading,
 .quiz-result-page.error {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Reveal Animation */
+.reveal-animation {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #FD297B 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.reveal-container {
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.reveal-spinner {
+  width: 80px;
+  height: 80px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+.reveal-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  min-height: 1.5em;
+}
+
+.reveal-progress-bar {
+  width: 250px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 auto 0.75rem;
+}
+
+.reveal-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 4px;
+  transition: width 0.1s ease;
+}
+
+.reveal-percentage {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Main Result Card */
+.result-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.result-card.main-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.result-character-image {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: #4A0404;
+  line-height: 1.3;
+}
+
+/* Trait Cards */
+.trait-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.trait-card {
+  flex: 1 1 calc(50% - 0.25rem);
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #4A0404;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #FFFFFF;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Heart Rating */
+.rating-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.heart-rating {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.heart-icon-rating {
+  transition: transform 0.2s ease;
+}
+
+.score-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #FFFFFF;
+}
+
+/* Percentile Section */
+.percentile-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.percentile-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+.percentile-text strong {
+  font-size: 1.5rem;
+  color: #FFD700;
+}
+
+.percentile-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* Radar Chart */
+.radar-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1.5rem;
+}
+
+.radar-chart-container {
+  width: 100%;
+  height: 280px;
+}
+
+/* Characteristics Section */
+.characteristics-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.characteristics-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.characteristics-card.positive {
+  border-left: 4px solid #00C853;
+}
+
+.characteristics-card.negative {
+  border-left: 4px solid #FF6B6B;
+}
+
+.characteristics-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #4A0404;
+  margin-bottom: 0.75rem;
+}
+
+.characteristics-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.characteristics-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: #333;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.characteristics-list li:last-child {
+  border-bottom: none;
 }
 
 .loading-container,
