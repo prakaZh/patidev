@@ -200,6 +200,26 @@ async def get_quiz_stats():
         "score_distribution": distribution
     }
 
+@api_router.get("/visitor/count")
+async def get_visitor_count():
+    """Get current visitor count"""
+    counter = await db.site_stats.find_one({"type": "visitor_counter"}, {"_id": 0})
+    if not counter:
+        return {"count": 0}
+    return {"count": counter.get("count", 0)}
+
+@api_router.post("/visitor/increment")
+async def increment_visitor_count():
+    """Increment visitor count"""
+    result = await db.site_stats.find_one_and_update(
+        {"type": "visitor_counter"},
+        {"$inc": {"count": 1}},
+        upsert=True,
+        return_document=True
+    )
+    count = result.get("count", 1) if result else 1
+    return {"count": count}
+
 # Include the router in the main app
 app.include_router(api_router)
 
