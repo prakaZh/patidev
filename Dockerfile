@@ -1,19 +1,28 @@
-# Use the official lightweight Node.js image.
-# https://hub.docker.com/_/node
+# Stage 1: Build the Frontend
+FROM node:20-slim AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Build the Backend & Final Image
 FROM node:20-slim
+WORKDIR /app
+# Copy backend dependencies
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install --only=production
 
-# Create and change to the app directory.
-WORKDIR /usr/src/app
+# Copy backend source code
+COPY backend/ ./backend/
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-COPY package*.json ./
+# Copy the built frontend files into the backend's static/public folder
+# Note: Adjust './backend/public' if your Express server uses a different static folder name
+COPY --from=frontend-build /app/frontend/dist ./backend/public
 
-# Install production dependencies.
-RUN npm install --only=production
+# Set environment variables
+ENV PORT=8080
+EXPOSE 8080
 
-# Copy local code to the container image.
-COPY . .
-
-# Run the web service on container startup.
-CMD [ "npm", "start" ]
+# Start the server
+CMD ["node", "backend/index.js"]
