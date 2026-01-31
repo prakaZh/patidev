@@ -180,7 +180,7 @@ def main():
         ("Root Endpoint", tester.test_root_endpoint),
         ("Submit Quiz", tester.test_submit_quiz),
         ("Get All Results", tester.test_get_all_results),
-        ("Get Specific Result", tester.test_specific_result),
+        ("Get Specific Result", tester.test_get_specific_result),
         ("Invalid Result ID", tester.test_invalid_result_id)
     ]
     
