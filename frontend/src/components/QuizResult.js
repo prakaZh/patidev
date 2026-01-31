@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { RefreshCw, Home, Heart } from 'lucide-react';
+import { RefreshCw, Home, Heart, ChevronDown, Instagram, Linkedin } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
 import { CATEGORIES } from '../data/quizQuestions';
 import { RESULT_DATA, CATEGORY_TRAITS, RADAR_LABELS } from '../data/resultData';
@@ -19,10 +19,83 @@ const HeartRating = ({ score }) => {
           size={24}
           fill={index < score ? '#FD297B' : 'transparent'}
           stroke={index < score ? '#FD297B' : 'rgba(255,255,255,0.3)'}
-          className="heart-icon-rating"
+          className={`heart-icon-rating ${index < score ? 'animate-heart-pop' : ''}`}
+          style={{ animationDelay: `${index * 0.1}s` }}
         />
       ))}
     </div>
+  );
+};
+
+// Scroll Indicator Component
+const ScrollIndicator = ({ show }) => {
+  if (!show) return null;
+  
+  return (
+    <div className="scroll-indicator" data-testid="scroll-indicator">
+      <p className="scroll-text">Scroll for more</p>
+      <ChevronDown className="scroll-arrow" size={24} />
+    </div>
+  );
+};
+
+// Social Nudge Component
+const SocialNudge = () => {
+  return (
+    <div className="social-nudge" data-testid="social-nudge">
+      <p className="nudge-text">Enjoyed the quiz? Let's connect!</p>
+      <div className="social-nudge-links">
+        <a 
+          href="https://instagram.com/prakazhkumar" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="social-nudge-link instagram"
+          data-testid="nudge-instagram"
+        >
+          <Instagram size={20} />
+          <span>Follow on Instagram</span>
+        </a>
+        <a 
+          href="https://www.linkedin.com/in/prakash-kumar-prasad-a9467b95" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="social-nudge-link linkedin"
+          data-testid="nudge-linkedin"
+        >
+          <Linkedin size={20} />
+          <span>Connect on LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+// Footer Component
+const ResultFooter = () => {
+  return (
+    <footer className="result-footer" data-testid="result-footer">
+      <p className="footer-signature">Created by Prakash</p>
+      <div className="footer-social-links">
+        <a 
+          href="https://instagram.com/prakazhkumar" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="footer-social-link"
+          aria-label="Follow on Instagram"
+        >
+          <Instagram size={22} />
+        </a>
+        <a 
+          href="https://www.linkedin.com/in/prakash-kumar-prasad-a9467b95" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="footer-social-link"
+          aria-label="Connect on LinkedIn"
+        >
+          <Linkedin size={22} />
+        </a>
+      </div>
+    </footer>
   );
 };
 
@@ -88,6 +161,18 @@ export const QuizResult = () => {
   const [loading, setLoading] = useState(true);
   const [showReveal, setShowReveal] = useState(true);
   const [error, setError] = useState(null);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+
+  // Handle scroll to hide indicator
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const submitQuiz = async () => {
@@ -220,7 +305,7 @@ export const QuizResult = () => {
     <div className="quiz-result-page analytics" data-testid="quiz-result-page">
       <div className="result-scroll-container">
         {/* Character Image Card */}
-        <div className="result-card main-card" data-testid="main-result-card">
+        <div className="result-card main-card animate-fade-in-up" data-testid="main-result-card">
           <img 
             src={resultData?.image} 
             alt={resultData?.title}
@@ -235,21 +320,26 @@ export const QuizResult = () => {
         {/* Trait Cards */}
         <div className="trait-cards" data-testid="trait-cards">
           {resultData?.traits.map((trait, index) => (
-            <div key={index} className="trait-card" data-testid={`trait-card-${index}`}>
+            <div 
+              key={index} 
+              className="trait-card animate-fade-in-up" 
+              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              data-testid={`trait-card-${index}`}
+            >
               {trait}
             </div>
           ))}
         </div>
 
         {/* Heart Rating */}
-        <div className="rating-section" data-testid="rating-section">
+        <div className="rating-section animate-fade-in-up" style={{ animationDelay: '0.4s' }} data-testid="rating-section">
           <h3 className="section-title">Husband Rating</h3>
           <HeartRating score={result?.score_1_to_10 || 0} />
           <p className="score-label">{result?.score_1_to_10}/10</p>
         </div>
 
         {/* Percentile */}
-        <div className="percentile-section" data-testid="percentile-section">
+        <div className="percentile-section animate-fade-in-up" style={{ animationDelay: '0.5s' }} data-testid="percentile-section">
           <p className="percentile-text">
             Your husband is better than <strong>{result?.percentile}%</strong> of husbands
           </p>
@@ -257,7 +347,7 @@ export const QuizResult = () => {
         </div>
 
         {/* Radar Chart */}
-        <div className="radar-section" data-testid="radar-section">
+        <div className="radar-section animate-fade-in-up" style={{ animationDelay: '0.6s' }} data-testid="radar-section">
           <h3 className="section-title">Category Breakdown</h3>
           <div className="radar-chart-container">
             <ResponsiveContainer width="100%" height={280}>
@@ -288,7 +378,7 @@ export const QuizResult = () => {
         </div>
 
         {/* Positive & Negative Traits */}
-        <div className="characteristics-section" data-testid="characteristics-section">
+        <div className="characteristics-section animate-fade-in-up" style={{ animationDelay: '0.7s' }} data-testid="characteristics-section">
           {traits.positive.length > 0 && (
             <div className="characteristics-card positive">
               <h4 className="characteristics-title">✨ Positive Traits</h4>
@@ -313,7 +403,7 @@ export const QuizResult = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="result-actions" data-testid="result-actions">
+        <div className="result-actions animate-fade-in-up" style={{ animationDelay: '0.8s' }} data-testid="result-actions">
           <button 
             onClick={handleRetakeQuiz} 
             className="action-btn retake-btn"
@@ -332,7 +422,16 @@ export const QuizResult = () => {
             <span>Home</span>
           </button>
         </div>
+
+        {/* Social Nudge */}
+        <SocialNudge />
+
+        {/* Footer */}
+        <ResultFooter />
       </div>
+
+      {/* Scroll Indicator */}
+      <ScrollIndicator show={showScrollIndicator} />
     </div>
   );
 };

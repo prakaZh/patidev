@@ -1,6 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart } from 'lucide-react';
+import axios from 'axios';
+import { Heart, Users } from 'lucide-react';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
+
+// Visitor Counter Component
+const VisitorCounter = () => {
+  const [count, setCount] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const incrementVisitor = async () => {
+      try {
+        const response = await axios.post(`${API}/visitor/increment`);
+        setCount(response.data.count);
+      } catch (err) {
+        console.error('Error incrementing visitor count:', err);
+        // Try to get existing count
+        try {
+          const getResponse = await axios.get(`${API}/visitor/count`);
+          setCount(getResponse.data.count);
+        } catch {
+          setCount(0);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    incrementVisitor();
+  }, []);
+
+  if (loading) return null;
+
+  return (
+    <div className="visitor-counter" data-testid="visitor-counter">
+      <Users size={16} />
+      <span>{count?.toLocaleString() || 0} visitors</span>
+    </div>
+  );
+};
 
 const FloatingHeart = ({ style, delay, size = 20 }) => (
   <div 
@@ -34,6 +75,9 @@ export const HeroSection = () => {
 
   return (
     <section className="hero-section" data-testid="hero-section">
+      {/* Visitor Counter */}
+      <VisitorCounter />
+
       {/* Floating Hearts */}
       {hearts.map((heart, index) => (
         <FloatingHeart 

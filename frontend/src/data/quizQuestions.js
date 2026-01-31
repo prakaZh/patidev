@@ -1,21 +1,21 @@
-// 15 Questions for Pati Devta Quiz organized by categories (categories hidden from users)
+// 15 Questions for Pati Devta Quiz - Simplified language
 export const QUIZ_QUESTIONS = [
   // Category 1: Personality and Psychological Stability
   {
     id: 1,
-    question: "Does he generally remain calm and handle stressful household situations with poise, calm and grace?",
+    question: "Does he stay calm when things get stressful at home?",
     category: "personality_stability",
     categoryName: "Personality and Psychological Stability"
   },
   {
     id: 2,
-    question: "Does he demonstrate a high level of trust and altruism in his daily interactions with you?",
+    question: "Is he generally kind and helpful to you every day?",
     category: "personality_stability",
     categoryName: "Personality and Psychological Stability"
   },
   {
     id: 3,
-    question: "Is he free from tendencies toward frequent emotional distress, chronic anxiety, or hostility?",
+    question: "Does he avoid getting angry, anxious or upset too often?",
     category: "personality_stability",
     categoryName: "Personality and Psychological Stability"
   },
@@ -23,19 +23,19 @@ export const QUIZ_QUESTIONS = [
   // Category 2: Cognitive Empathy and Partner Perspective-Taking
   {
     id: 4,
-    question: "During conflicts or meaningful discussions, does he actively attempt to see the situation from your vantage point?",
+    question: "When you argue, does he try to understand your point of view?",
     category: "cognitive_empathy",
     categoryName: "Cognitive Empathy and Partner Perspective-Taking"
   },
   {
     id: 5,
-    question: "Is he consistently accurate at predicting your feelings or reactions to life events?",
+    question: "Can he usually tell how you're feeling without you saying it?",
     category: "cognitive_empathy",
     categoryName: "Cognitive Empathy and Partner Perspective-Taking"
   },
   {
     id: 6,
-    question: "Does he show genuine empathic concern for your feelings when you are in distress?",
+    question: "Does he truly care when you're sad or upset?",
     category: "cognitive_empathy",
     categoryName: "Cognitive Empathy and Partner Perspective-Taking"
   },
@@ -43,19 +43,19 @@ export const QUIZ_QUESTIONS = [
   // Category 3: Conflict Management and Relational Influence
   {
     id: 7,
-    question: "Is he willing to accept influence by valuing your opinions and sharing power during decision-making?",
+    question: "Does he value your opinions when making decisions together?",
     category: "conflict_management",
     categoryName: "Conflict Management and Relational Influence"
   },
   {
     id: 8,
-    question: "Does he approach difficult topics gently, avoiding the use of blame, criticism, or harsh startups?",
+    question: "Does he talk nicely even when discussing difficult topics?",
     category: "conflict_management",
     categoryName: "Conflict Management and Relational Influence"
   },
   {
     id: 9,
-    question: "When a disagreement occurs, is he effective at making small repair attempts, such as using humor or an apology to reconnect?",
+    question: "After a fight, does he try to make up with a joke or sorry?",
     category: "conflict_management",
     categoryName: "Conflict Management and Relational Influence"
   },
@@ -63,19 +63,19 @@ export const QUIZ_QUESTIONS = [
   // Category 4: Proactive Domestic Contribution and Shared Labor
   {
     id: 10,
-    question: "Does he take full ownership of specific household tasks without waiting for you to tell him what, when, or how to do it?",
+    question: "Does he do household chores without you asking?",
     category: "domestic_contribution",
     categoryName: "Proactive Domestic Contribution and Shared Labor"
   },
   {
     id: 11,
-    question: "Does he proactively share the mental load by noticing family needs and researching options independently?",
+    question: "Does he notice what the family needs and take action on his own?",
     category: "domestic_contribution",
     categoryName: "Proactive Domestic Contribution and Shared Labor"
   },
   {
     id: 12,
-    question: "Is your division of labor based on a flexible, egalitarian team approach rather than rigid gender roles?",
+    question: "Do you both share housework equally as a team?",
     category: "domestic_contribution",
     categoryName: "Proactive Domestic Contribution and Shared Labor"
   },
@@ -83,19 +83,19 @@ export const QUIZ_QUESTIONS = [
   // Category 5: Attachment Security and Relational Investment
   {
     id: 13,
-    question: "When you share good news, does he respond with enthusiastic, wholehearted engagement?",
+    question: "When you share good news, does he get excited with you?",
     category: "attachment_security",
     categoryName: "Attachment Security and Relational Investment"
   },
   {
     id: 14,
-    question: "Does he regularly make small bids for connection to build up the relationship's emotional bond?",
+    question: "Does he often do small things to show he loves you?",
     category: "attachment_security",
     categoryName: "Attachment Security and Relational Investment"
   },
   {
     id: 15,
-    question: "Does he provide a safe haven where you feel comfortable being both emotionally intimate and autonomous?",
+    question: "Do you feel safe to share your feelings and be yourself with him?",
     category: "attachment_security",
     categoryName: "Attachment Security and Relational Investment"
   }
