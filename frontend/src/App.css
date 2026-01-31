@@ -226,122 +226,79 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .heart-icon {
   color: #FFFFFF;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   animation: pulse 2s infinite;
 }
 
 .instructions-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: #FFFFFF;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.instructions-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 1.5rem;
-  padding: 2rem 1.5rem;
+.instructions-list-container {
   width: 100%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
 }
 
 .instructions-subtitle {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 1.25rem;
-  color: #4A0404;
+  font-size: 1.5rem;
+  color: #FFFFFF;
   text-align: center;
   margin-bottom: 1.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .instructions-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1.5rem 0;
+  margin: 0;
 }
 
 .instructions-list li {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.4;
+  font-size: 1rem;
+  color: #FFFFFF;
+  line-height: 1.5;
 }
 
 .instruction-number {
-  background: linear-gradient(135deg, #FE3C72 0%, #FF6B6B 100%);
+  background: rgba(255, 255, 255, 0.25);
   color: white;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.8rem;
-  flex-shrink: 0;
-}
-
-.name-input-container {
-  margin-top: 1rem;
-}
-
-.name-label {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
   font-size: 0.9rem;
-  color: #4A0404;
-  margin-bottom: 0.5rem;
-}
-
-.name-input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  border: 2px solid #E0E0E0;
-  border-radius: 0.75rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
-}
-
-.name-input:focus {
-  border-color: #FE3C72;
-}
-
-.name-input.error {
-  border-color: #FF4444;
-}
-
-.error-message {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #FF4444;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-  font-family: 'Montserrat', sans-serif;
+  flex-shrink: 0;
+  backdrop-filter: blur(10px);
 }
 
 .start-quiz-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  background: linear-gradient(135deg, #00C853 0%, #00E676 100%);
-  color: #FFFFFF;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  color: #764ba2;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 1.25rem;
@@ -349,23 +306,22 @@
   border-radius: 9999px;
   border: none;
   cursor: pointer;
-  margin-top: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 30px rgba(0, 200, 83, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .start-quiz-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 40px rgba(0, 200, 83, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .fun-note {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.9);
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   text-align: center;
 }
 
@@ -395,7 +351,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00C853 0%, #69F0AE 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, rgba(255,255,255,0.8) 100%);
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -473,23 +429,23 @@
 }
 
 .yes-btn {
-  background: linear-gradient(135deg, #00C853 0%, #00E676 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #FFFFFF;
   border-radius: 1rem 1rem 0 0;
 }
 
 .yes-btn:hover {
-  background: linear-gradient(135deg, #00B84D 0%, #00D66B 100%);
+  background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
 }
 
 .no-btn {
-  background: linear-gradient(135deg, #FF1744 0%, #FF5252 100%);
+  background: linear-gradient(135deg, #FD297B 0%, #FF6B6B 100%);
   color: #FFFFFF;
   border-radius: 0 0 1rem 1rem;
 }
 
 .no-btn:hover {
-  background: linear-gradient(135deg, #E91539 0%, #FF4747 100%);
+  background: linear-gradient(135deg, #e8246f 0%, #ff5555 100%);
 }
 
 /* ===== QUIZ RESULT PAGE ===== */
@@ -588,6 +544,19 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-size: 2.5rem;
+  color: #FFFFFF;
+}
+
+.score-percentage.high-score {
+  color: #FFFFFF;
+}
+
+.score-percentage.medium-score {
+  color: #FFFFFF;
+}
+
+.score-percentage.low-score {
+  color: #FFFFFF;
 }
 
 .rating-badge {
@@ -645,11 +614,11 @@
 }
 
 .yes-stat .stat-value {
-  color: #00C853;
+  color: #764ba2;
 }
 
 .no-stat .stat-value {
-  color: #FF1744;
+  color: #FD297B;
 }
 
 .stat-divider {
@@ -717,5 +686,13 @@
   .answer-btn {
     min-height: 180px;
     font-size: 2rem;
+  }
+  
+  .instructions-title {
+    font-size: 3.5rem;
+  }
+  
+  .instructions-list li {
+    font-size: 1.1rem;
   }
 }
