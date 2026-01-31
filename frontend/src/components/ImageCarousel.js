@@ -60,6 +60,7 @@ export const ImageCarousel = () => {
             src={currentImage.url}
             alt={currentImage.alt}
             className={`carousel-image ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+            style={{ background: 'transparent' }}
             data-testid="carousel-image"
           />
         </div>
