@@ -6,6 +6,26 @@
   overflow-x: hidden;
 }
 
+/* Visitor Counter */
+.visitor-counter {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
 /* Hero Section Styles */
 .hero-section {
   min-height: 50vh;
@@ -14,7 +34,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem 2rem;
   position: relative;
 }
 
