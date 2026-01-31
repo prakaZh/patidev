@@ -1,0 +1,27 @@
+steps:
+  # Build the backend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/patidevgcp-backend', './backend']
+  
+  # Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/patidevgcp-backend']
+  
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'patidevgcp'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/patidevgcp-backend'
+      - '--region'
+      - 'asia-south1'
+      - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/$PROJECT_ID/patidevgcp-backend'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
