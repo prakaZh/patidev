@@ -200,6 +200,29 @@ class QuizAPITester:
         )
         return success
 
+    def test_quiz_stats(self):
+        """Test getting quiz statistics"""
+        success, response = self.run_test(
+            "Get Quiz Statistics",
+            "GET",
+            "api/quiz/stats",
+            200
+        )
+        
+        if success:
+            # Validate response structure
+            required_fields = ['total_submissions', 'average_score', 'score_distribution']
+            for field in required_fields:
+                if field not in response:
+                    print(f"❌ Missing field in stats response: {field}")
+                    return False
+            
+            print(f"✅ Total submissions: {response['total_submissions']}")
+            print(f"✅ Average score: {response['average_score']}")
+            print(f"✅ Score distribution: {response['score_distribution']}")
+            
+        return success
+
 def main():
     print("🚀 Starting Pati Devta Quiz API Tests...")
     print("=" * 50)
