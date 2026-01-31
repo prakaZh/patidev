@@ -1,24 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Rozha+One&family=Nunito:wght@400;600;800&family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Caveat:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-primary: #800000;
-  --color-primary-foreground: #FFF8E7;
-  --color-secondary: #FFB703;
-  --color-secondary-foreground: #4A0404;
-  --color-background: #FFF8E7;
-  --color-foreground: #4A0404;
-  --color-accent: #D90429;
-  --color-muted: #F4E4BC;
-  --color-border: #E6CFA1;
+  --color-primary: #FE3C72;
+  --color-primary-light: #FF6B6B;
+  --color-primary-dark: #E91E63;
+  --color-secondary: #FF7854;
+  --color-background: #FFFFFF;
+  --color-background-dark: #121212;
+  --color-foreground: #21262E;
+  --color-foreground-light: #505965;
+  --color-accent: #FF4458;
+  --color-gradient-start: #FD297B;
+  --color-gradient-end: #FF5864;
 }
 
 body {
   margin: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
@@ -26,7 +28,8 @@ body {
 }
 
 .font-heading {
-  font-family: 'Rozha One', serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
 }
 
 .font-accent {
@@ -39,26 +42,26 @@ code {
 
 @layer base {
   :root {
-    --background: 45 100% 97%;
-    --foreground: 0 90% 15%;
+    --background: 0 0% 100%;
+    --foreground: 215 25% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 0 90% 15%;
+    --card-foreground: 215 25% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 90% 15%;
-    --primary: 0 100% 25%;
-    --primary-foreground: 45 100% 97%;
-    --secondary: 43 100% 51%;
-    --secondary-foreground: 0 90% 15%;
-    --muted: 43 50% 85%;
-    --muted-foreground: 30 20% 48%;
-    --accent: 350 97% 43%;
+    --popover-foreground: 215 25% 15%;
+    --primary: 340 82% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 15 100% 66%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 346 100% 62%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 40 50% 77%;
-    --input: 40 50% 77%;
-    --ring: 0 100% 25%;
-    --radius: 0.5rem;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 340 82% 59%;
+    --radius: 0.75rem;
   }
 }
 
@@ -74,17 +77,17 @@ code {
 /* Floating hearts animation */
 @keyframes float-heart {
   0%, 100% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.6;
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.7;
   }
   50% {
-    transform: translateY(-20px) rotate(10deg);
+    transform: translateY(-30px) rotate(15deg) scale(1.1);
     opacity: 1;
   }
 }
 
 .animate-float-heart {
-  animation: float-heart 3s ease-in-out infinite;
+  animation: float-heart 4s ease-in-out infinite;
 }
 
 /* Heartbeat animation for CTA button */
@@ -121,10 +124,10 @@ code {
 /* Pulse glow for button */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 4px 14px 0 rgba(255, 183, 3, 0.39);
+    box-shadow: 0 4px 20px 0 rgba(253, 41, 123, 0.4);
   }
   50% {
-    box-shadow: 0 4px 30px 0 rgba(255, 183, 3, 0.7);
+    box-shadow: 0 8px 40px 0 rgba(253, 41, 123, 0.6);
   }
 }
 
