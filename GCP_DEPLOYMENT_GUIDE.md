@@ -1,251 +1,242 @@
-# GCP Deployment Guide for Pati Devta Quiz
+# Pati Devta Quiz - GCP Cloud Run Deployment
 
-## Overview
-This guide covers deploying the backend (FastAPI) on Google Cloud Platform with MongoDB Atlas.
+This guide explains how to deploy this app to Google Cloud Run.
+
+## Architecture
+- **Backend**: FastAPI (Python) → Cloud Run
+- **Frontend**: React → Firebase Hosting / Cloud Run
+- **Database**: MongoDB Atlas (cloud)
 
 ---
 
-## Option 1: Google Cloud Run (Recommended - Serverless)
+## Step 1: Setup MongoDB Atlas
 
-### Prerequisites
-- Google Cloud account with billing enabled
-- `gcloud` CLI installed
-- Docker installed locally
-- MongoDB Atlas account (free tier available)
+1. Go to [mongodb.com/atlas](https://www.mongodb.com/atlas)
+2. Create a free cluster (M0 Sandbox)
+3. Create a database user with password
+4. Whitelist IP: `0.0.0.0/0` (allow all for Cloud Run)
+5. Get connection string: `mongodb+srv://username:password@cluster.mongodb.net/pati_devta_db`
 
-### Step 1: Set Up MongoDB Atlas (Cloud Database)
+---
 
-1. **Create MongoDB Atlas Account**: Go to [mongodb.com/atlas](https://www.mongodb.com/atlas) and sign up
-2. **Create a Free Cluster**: 
-   - Choose "Shared" (free tier)
-   - Select a region close to your users
-3. **Create Database User**:
-   - Go to Database Access → Add New Database User
-   - Note down username and password
-4. **Whitelist IP Address**:
-   - Go to Network Access → Add IP Address
-   - Add `0.0.0.0/0` to allow all IPs (for Cloud Run)
-5. **Get Connection String**:
-   - Go to Clusters → Connect → Connect your application
-   - Copy the connection string, e.g.:
-   ```
-   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
-   ```
+## Step 2: Prepare GitHub Repository
 
-### Step 2: Create Dockerfile for Backend
-
-Create `/app/backend/Dockerfile`:
-```dockerfile
-FROM python:3.11-slim
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8080"]
+Your repo structure should be:
+```
+your-repo/
+├── backend/
+│   ├── server.py
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── .env.example
+└── README.md
 ```
 
-### Step 3: Deploy to Cloud Run
+Create `.env.example` files (DO NOT commit actual .env):
+
+**backend/.env.example:**
+```
+MONGO_URL=mongodb+srv://username:password@cluster.mongodb.net/
+DB_NAME=pati_devta_db
+CORS_ORIGINS=https://your-frontend-url.web.app,https://your-cloudrun-url.run.app
+```
+
+**frontend/.env.example:**
+```
+REACT_APP_BACKEND_URL=https://patidevgcp-xxxxx-el.a.run.app
+```
+
+---
+
+## Step 3: Deploy Backend to Cloud Run
+
+### Option A: Deploy from Source (Recommended)
 
 ```bash
-# Set your project ID
-export PROJECT_ID="your-gcp-project-id"
+# Navigate to backend directory
+cd backend
 
 # Authenticate with GCP
 gcloud auth login
-gcloud config set project $PROJECT_ID
+gcloud config set project plan-my-concert
 
-# Enable required APIs
-gcloud services enable run.googleapis.com
-gcloud services enable cloudbuild.googleapis.com
-
-# Navigate to backend directory
-cd /app/backend
-
-# Build and deploy
-gcloud run deploy pati-devta-api \
+# Deploy to existing Cloud Run service
+gcloud run deploy patidevgcp \
   --source . \
   --region asia-south1 \
   --allow-unauthenticated \
-  --set-env-vars "MONGO_URL=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority" \
-  --set-env-vars "DB_NAME=pati_devta_quiz" \
+  --set-env-vars "MONGO_URL=mongodb+srv://USER:PASS@cluster.mongodb.net/" \
+  --set-env-vars "DB_NAME=pati_devta_db" \
   --set-env-vars "CORS_ORIGINS=*"
 ```
 
-### Step 4: Update Frontend Environment
+### Option B: Deploy using Cloud Build + GitHub
 
-After deployment, Cloud Run will give you a URL like:
-`https://pati-devta-api-xxxxx-uc.a.run.app`
+1. Connect GitHub repo to Cloud Build:
+   - Go to [Cloud Build](https://console.cloud.google.com/cloud-build)
+   - Click "Triggers" → "Create Trigger"
+   - Connect your GitHub repository
+   
+2. Create `cloudbuild.yaml` in your repo root:
 
-Update `/app/frontend/.env`:
+```yaml
+steps:
+  # Build the backend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/patidevgcp-backend', './backend']
+  
+  # Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/patidevgcp-backend']
+  
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'patidevgcp'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/patidevgcp-backend'
+      - '--region'
+      - 'asia-south1'
+      - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/$PROJECT_ID/patidevgcp-backend'
 ```
-REACT_APP_BACKEND_URL=https://pati-devta-api-xxxxx-uc.a.run.app
-```
 
-### Step 5: Deploy Frontend (Options)
-
-**Option A: Firebase Hosting (Google)**
-```bash
-# Install Firebase CLI
-npm install -g firebase-tools
-
-# Build frontend
-cd /app/frontend
-yarn build
-
-# Initialize Firebase
-firebase login
-firebase init hosting
-
-# Deploy
-firebase deploy
-```
-
-**Option B: Vercel (Easiest)**
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy
-cd /app/frontend
-vercel --prod
-```
+3. Set environment variables in Cloud Run Console:
+   - Go to your service → "Edit & Deploy New Revision"
+   - Under "Variables & Secrets", add:
+     - `MONGO_URL`: Your MongoDB Atlas connection string
+     - `DB_NAME`: `pati_devta_db`
+     - `CORS_ORIGINS`: `*` or your frontend URLs
 
 ---
 
-## Option 2: Google Compute Engine (VM)
+## Step 4: Deploy Frontend
 
-### Step 1: Create VM Instance
-
-```bash
-# Create VM
-gcloud compute instances create pati-devta-server \
-  --zone=asia-south1-a \
-  --machine-type=e2-micro \
-  --image-family=ubuntu-2204-lts \
-  --image-project=ubuntu-os-cloud \
-  --tags=http-server,https-server
-
-# Allow HTTP/HTTPS traffic
-gcloud compute firewall-rules create allow-http \
-  --allow tcp:80,tcp:443,tcp:8001 \
-  --target-tags=http-server
-```
-
-### Step 2: SSH into VM and Set Up
+### Option A: Firebase Hosting (Recommended)
 
 ```bash
-# SSH into VM
-gcloud compute ssh pati-devta-server --zone=asia-south1-a
+cd frontend
 
-# Update and install dependencies
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y python3-pip python3-venv nginx certbot python3-certbot-nginx
+# Install Firebase CLI
+npm install -g firebase-tools
 
-# Clone or upload your code
-# Then set up Python environment
-cd /app/backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+# Login and initialize
+firebase login
+firebase init hosting
 
-# Create .env file
-cat > .env << EOF
-MONGO_URL=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
-DB_NAME=pati_devta_quiz
-CORS_ORIGINS=*
-EOF
+# When prompted:
+# - Select your project (plan-my-concert)
+# - Public directory: build
+# - Single-page app: Yes
+# - Don't overwrite index.html
 
-# Run with gunicorn
-pip install gunicorn
-gunicorn server:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8001
+# Set environment variable
+echo "REACT_APP_BACKEND_URL=https://patidevgcp-xxxxx-el.a.run.app" > .env.production
+
+# Build and deploy
+yarn build
+firebase deploy --only hosting
 ```
 
-### Step 3: Set Up Nginx Reverse Proxy
+### Option B: Cloud Run (Full-stack on Cloud Run)
 
-```bash
-sudo nano /etc/nginx/sites-available/pati-devta
+Create `frontend/Dockerfile`:
+```dockerfile
+FROM node:18-alpine as build
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
+COPY . .
+ARG REACT_APP_BACKEND_URL
+ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
+RUN yarn build
+
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
-Add:
+Create `frontend/nginx.conf`:
 ```nginx
 server {
-    listen 80;
-    server_name your-domain.com;
-
-    location /api {
-        proxy_pass http://127.0.0.1:8001;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
+    listen 8080;
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+        try_files $uri $uri/ /index.html;
     }
 }
 ```
 
-Enable and restart:
+Deploy:
 ```bash
-sudo ln -s /etc/nginx/sites-available/pati-devta /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl restart nginx
-```
-
-### Step 4: Set Up SSL (Optional but Recommended)
-
-```bash
-sudo certbot --nginx -d your-domain.com
+cd frontend
+gcloud run deploy patidevgcp-frontend \
+  --source . \
+  --region asia-south1 \
+  --allow-unauthenticated \
+  --set-env-vars "REACT_APP_BACKEND_URL=https://patidevgcp-xxxxx-el.a.run.app"
 ```
 
 ---
 
-## Option 3: Google Kubernetes Engine (GKE) - For Scale
+## Step 5: Update CORS
 
-For larger deployments, use GKE with Kubernetes manifests. Contact for detailed K8s deployment guide.
+After deploying frontend, update backend CORS:
 
----
-
-## Environment Variables Reference
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `MONGO_URL` | MongoDB connection string | `mongodb+srv://user:pass@cluster.mongodb.net/` |
-| `DB_NAME` | Database name | `pati_devta_quiz` |
-| `CORS_ORIGINS` | Allowed origins | `*` or `https://yourdomain.com` |
-
----
-
-## Cost Estimates (Monthly)
-
-| Service | Free Tier | Paid |
-|---------|-----------|------|
-| Cloud Run | 2M requests free | ~$5-10 |
-| MongoDB Atlas | 512MB free | ~$10+ |
-| Compute Engine | $0 (f1-micro) | $5-15 |
-| Firebase Hosting | 10GB free | ~$0.15/GB |
+```bash
+gcloud run services update patidevgcp \
+  --region asia-south1 \
+  --set-env-vars "CORS_ORIGINS=https://your-frontend-url.web.app"
+```
 
 ---
 
 ## Quick Commands Reference
 
 ```bash
-# View Cloud Run logs
-gcloud run services logs read pati-devta-api --region asia-south1
+# View service URL
+gcloud run services describe patidevgcp --region asia-south1 --format='value(status.url)'
 
-# Update Cloud Run
-gcloud run deploy pati-devta-api --source . --region asia-south1
+# View logs
+gcloud run services logs read patidevgcp --region asia-south1
 
-# View deployed URL
-gcloud run services describe pati-devta-api --region asia-south1 --format='value(status.url)'
+# Update environment variable
+gcloud run services update patidevgcp --region asia-south1 --set-env-vars "KEY=value"
+
+# Redeploy
+gcloud run deploy patidevgcp --source ./backend --region asia-south1
 ```
 
 ---
 
-## Need Help?
+## Troubleshooting
 
-- [Google Cloud Run Docs](https://cloud.google.com/run/docs)
-- [MongoDB Atlas Docs](https://docs.atlas.mongodb.com/)
-- [FastAPI Deployment](https://fastapi.tiangolo.com/deployment/)
+1. **CORS errors**: Make sure `CORS_ORIGINS` includes your frontend URL
+2. **Database connection fails**: Check MongoDB Atlas IP whitelist (0.0.0.0/0)
+3. **Cold start slow**: Consider setting minimum instances to 1
+4. **Build fails**: Check `requirements.txt` has all dependencies
+
+---
+
+## Cost Estimate (Monthly)
+
+| Service | Free Tier | Notes |
+|---------|-----------|-------|
+| Cloud Run | 2M requests | First 180,000 vCPU-seconds free |
+| MongoDB Atlas | 512MB | M0 cluster is free forever |
+| Firebase Hosting | 10GB/month | Free tier sufficient for most |
+
+Your service: **patidevgcp** in **asia-south1** region, project: **plan-my-concert**
