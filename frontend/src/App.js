@@ -1,26 +1,34 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@/App.css";
 import { HeroSection } from "./components/HeroSection";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { Footer } from "./components/Footer";
+import { QuizInstructions } from "./components/QuizInstructions";
+import { QuizQuestion } from "./components/QuizQuestion";
+import { QuizResult } from "./components/QuizResult";
 
-function App() {
-  const handleCtaClick = () => {
-    // Placeholder for future quiz navigation
-    console.log("CTA clicked - Quiz coming soon!");
-  };
-
+// Landing Page Component
+const LandingPage = () => {
   return (
-    <div className="App" data-testid="app-container">
-      {/* Hero Section - Top half with bold headline and CTA */}
-      <HeroSection onCtaClick={handleCtaClick} />
-      
-      {/* Image Carousel Section - Transparent background */}
+    <div className="App" data-testid="landing-page">
+      <HeroSection />
       <ImageCarousel />
-      
-      {/* Footer with credits and social links */}
       <Footer />
     </div>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/quiz" element={<QuizInstructions />} />
+        <Route path="/quiz/question/:questionId" element={<QuizQuestion />} />
+        <Route path="/quiz/result" element={<QuizResult />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

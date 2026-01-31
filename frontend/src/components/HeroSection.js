@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
 const FloatingHeart = ({ style, delay, size = 20 }) => (
@@ -13,7 +14,9 @@ const FloatingHeart = ({ style, delay, size = 20 }) => (
   </div>
 );
 
-export const HeroSection = ({ onCtaClick }) => {
+export const HeroSection = () => {
+  const navigate = useNavigate();
+  
   const hearts = [
     { top: '8%', left: '5%', delay: 0, size: 18 },
     { top: '15%', right: '10%', delay: 0.5, size: 24 },
@@ -24,6 +27,10 @@ export const HeroSection = ({ onCtaClick }) => {
     { top: '50%', right: '12%', delay: 0.8, size: 16 },
     { top: '85%', left: '15%', delay: 1.2, size: 18 },
   ];
+
+  const handleCtaClick = () => {
+    navigate('/quiz');
+  };
 
   return (
     <section className="hero-section" data-testid="hero-section">
@@ -49,7 +56,7 @@ export const HeroSection = ({ onCtaClick }) => {
       {/* CTA Button with animations */}
       <button 
         className="cta-button animate-heartbeat animate-pulse-glow"
-        onClick={onCtaClick}
+        onClick={handleCtaClick}
         data-testid="cta-button"
       >
         LETS FIND OUT
