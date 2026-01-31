@@ -4,7 +4,7 @@ WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ ./
-RUN npm run build
+RUN npm run buildfff
 
 # --- Stage 2: Build the Python Backend ---
 FROM python:3.11-slim
