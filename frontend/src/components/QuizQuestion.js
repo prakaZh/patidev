@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { QUIZ_QUESTIONS } from '../data/quizQuestions';
 import { Check, X } from 'lucide-react';
@@ -16,13 +16,7 @@ export const QuizQuestion = () => {
     if (savedAnswers) {
       setAnswers(JSON.parse(savedAnswers));
     }
-    
-    // Check if user has a name
-    const userName = sessionStorage.getItem('quizUserName');
-    if (!userName) {
-      navigate('/quiz');
-    }
-  }, [navigate]);
+  }, []);
 
   // Validate question number
   if (currentQuestionIndex < 0 || currentQuestionIndex >= QUIZ_QUESTIONS.length) {
@@ -39,11 +33,12 @@ export const QuizQuestion = () => {
     
     setIsAnimating(true);
     
-    // Save answer
+    // Save answer with category info for scoring
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = {
       questionId: currentQuestion.id,
       question: currentQuestion.question,
+      category: currentQuestion.category,
       answer: answer
     };
     
@@ -81,7 +76,7 @@ export const QuizQuestion = () => {
 
       {/* Question */}
       <div className="question-container" data-testid="question-container">
-        <span className="question-number">Q{currentQuestionIndex + 1}</span>
+        <span className="question-number">Question {currentQuestionIndex + 1}</span>
         <h2 className="question-text" data-testid="question-text">
           {currentQuestion.question}
         </h2>
@@ -96,7 +91,7 @@ export const QuizQuestion = () => {
           data-testid="yes-btn"
         >
           <Check size={48} strokeWidth={3} />
-          <span>HAAN</span>
+          <span>YES</span>
         </button>
         
         <button
@@ -106,7 +101,7 @@ export const QuizQuestion = () => {
           data-testid="no-btn"
         >
           <X size={48} strokeWidth={3} />
-          <span>NA</span>
+          <span>NO</span>
         </button>
       </div>
     </div>
