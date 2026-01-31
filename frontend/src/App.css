@@ -600,15 +600,17 @@
 .trait-card {
   flex: 1 1 calc(50% - 0.25rem);
   min-width: 140px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
   border-radius: 1rem;
   padding: 1rem;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 0.85rem;
-  color: #4A0404;
+  color: #FFFFFF;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Section Titles */
